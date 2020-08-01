@@ -37,11 +37,10 @@ class MainFrame(wx.Frame):
             print("[+] Successfully Connected to Server \n")
             dataJson = response.json()
             gameName = dataJson["name_original"]
-            description = dataJson["description_raw"]
+            # description = dataJson["description_raw"]
             metacritic = dataJson["metacritic"]
             releaseDate = dataJson["released"]
             gameImg = dataJson["background_image"]
-
 
         print(gameName, metacritic, releaseDate, gameImg)
 
