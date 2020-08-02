@@ -32,7 +32,7 @@ class MainFrame(wx.Frame):
 
         # check if server response, then get json
         if response.status_code != 200:
-            print("[-] Can't connect to API Server, please check URL or try again later.")
+            print("[-] Can't connect to API Server, try again later.")
         else:
             print("[+] Successfully Connected to Server \n")
             dataJson = response.json()
