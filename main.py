@@ -18,6 +18,7 @@ class MainFrame(wx.Frame):
         panel.SetSizer(mainFrameSizer)
         self.Show()
 
+    # define press action on enter button
     def enterPress(self, event):
         value = self.textInput.GetValue()
         if not value:
@@ -25,6 +26,7 @@ class MainFrame(wx.Frame):
         else:
             print(f"You are looking for {value}.")
 
+    # ToDo integrate caller script
     def jsonCaller():
         apiServerURL = "https://api.rawg.io/api/games/grand-theft-auto-v"
 
