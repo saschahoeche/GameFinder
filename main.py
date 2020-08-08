@@ -2,6 +2,30 @@ import wx
 import requests
 
 
+class PanelOne(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+        inputText = wx.TextCtrl(self)
+        enterButton = wx.Button(self, label="Enter")
+
+
+class PanelTwo(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent=parent)
+
+        nameOfGame = wx.StaticText(self, label="Name: ")
+        nameOutput = wx.StaticText(self, label=GAMENAME)
+
+        metaScore = wx.StaticText(self, label="Score: ")
+        scoreOutput = wx.StaticText(self, label=SCORE)
+
+        releaseDate = wx.StaticText(self, label="Released: ")
+        dateOutput = wx.StaticText(self, label=DATE)
+
+        descr = wx.StaticText(self, label="Description: ")
+        descrOutput = wx.StaticText(self, label=DESCR)
+
+
 class MainFrame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='Game Finder')
