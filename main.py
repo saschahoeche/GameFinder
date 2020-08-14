@@ -8,34 +8,16 @@ testResponse = requests.get(apiServerTestURL)
 
 col = [
     [sg.Text("GameFinder", justification="center", font=("", 36))],
-    [sg.Button("Check Connectivity", font=("", 16), auto_size_button=True, key="_CONN_CHECK_")],
-    [sg.Output(size=(80, 20), font=("", 14))]
+    [sg.Input("", key="_INPUT_"), sg.Button("Search", key="_SEARCH_")],    
+    [sg.Output(size=(120, 30), font=("", 12), key="_OUTPUT_")],
+    [sg.Image(key="_IMAGE_")],
+    [sg.Button("Check Connectivity", font=("", 16), auto_size_button=True, key="_CONN_CHECK_"),
+    sg.Button("Exit", font=("", 16), auto_size_button=True, key="_EXIT_")]
     ]
 
 layout = [
     [sg.Column(col, element_justification="center")]
 ]
-
-'''
-def jsonCaller():
-    apiServerURL = "https://api.rawg.io/api/games/grand-theft-auto-v"
-
-    response = requests.get(apiServerURL)
-
-    # check if server response, then get json
-    if response.status_code != 200:
-        print("[-] Can't connect to API Server, try again later.")
-    else:
-        print("[+] Successfully Connected to Server \n")
-        dataJson = response.json()
-        gameName = dataJson["name_original"]
-        # description = dataJson["description_raw"]
-        metacritic = dataJson["metacritic"]
-        releaseDate = dataJson["released"]
-        gameImg = dataJson["background_image"]
-
-    print(gameName, metacritic, releaseDate, gameImg)
-'''
 
 # MainFrame
 window = sg.Window("Game - Finder", layout)
@@ -43,10 +25,26 @@ checkEnable = True
 
 def checkConnection():
     if testResponse.status_code != 200:
-        print("[-] Can't connect to API Server, try again later.")
+        print("\n[-] Can't connect to API Server, try again later.")
     else:
-        print("[+] Successfully Connected to Server \n")
+        print("\n[+] Successfully Connected to Server")
 
+def checkGame(GameName):
+    window.FindElement("_OUTPUT_").Update("")
+    gameResponse = requests.get("https://api.rawg.io/api/games/" + GameName.replace(" ", "-"))
+    dataJson = gameResponse.json()
+    if gameResponse.status_code != 200:
+        print("[-] Can't find game, check spelling or try again later.")
+    else:
+        print("[+] ===== Found Game =====")
+        print("\nGamename: " + dataJson["name_original"])
+        print("\nDescription: " + dataJson["description_raw"])
+        try:
+            print("\nMetacritic Score: " + str(dataJson["metacritic"]))
+        except:
+            print("\nCould not find Metacritic Score")
+        print("\nRelease Date: " + dataJson["released"])
+        
 # MainLoop
 while True:
     event, values = window.read() # write events/values in respective variables
@@ -55,6 +53,9 @@ while True:
         break
     if event == "_CONN_CHECK_":
         checkConnection()
+        window.Refresh()
+    if event == "_SEARCH_":
+        checkGame(values["_INPUT_"])
         window.Refresh()
 
 window.close()
