@@ -6,3 +6,5 @@ use <code>pip install -r requirements.txt</code> to install all dependencies
 
 ## Use
 Simply enter the name of the game and click 'Search' to display some Information about the game.
+
+![GameFinder](gameFinder.jpg)
