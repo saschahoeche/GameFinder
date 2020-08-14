@@ -20,7 +20,8 @@ layout = [
 ]
 
 # MainFrame
-window = sg.Window("Game - Finder", layout)
+window = sg.Window("Game - Finder", layout).finalize()
+window["_OUTPUT_"].TKOut.output.config(wrap='word')
 checkEnable = True
 
 def checkConnection():
