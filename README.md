@@ -2,4 +2,4 @@
 A game information finder bases on the api.rawg.io API
 
 ## Requirements
-See requirements.txt for dependencies
+use <code>pip install -r requirements.txt</code> to install all dependencies
